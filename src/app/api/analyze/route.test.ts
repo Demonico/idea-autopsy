@@ -2,6 +2,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { POST } from './route';
 import { NextRequest } from 'next/server';
 import { generateOpportunityBrief } from '@/modules/analysis-engine/generateBrief';
+import { OpportunityBrief } from '@/shared/types';
 
 vi.mock('@/modules/analysis-engine/generateBrief', () => ({
   generateOpportunityBrief: vi.fn(),
@@ -13,9 +14,10 @@ describe('POST /api/analyze', () => {
   });
 
   it('should return 200 and the brief on valid input', async () => {
-    const mockBrief = {
+    const mockBrief: OpportunityBrief = {
       id: '123',
       inputIdea: 'Valid idea content here',
+      createdAt: new Date().toISOString(),
       problemDefinition: {
         coreProblem: 'Test problem',
         painPoint: 'Test pain',
@@ -65,7 +67,7 @@ describe('POST /api/analyze', () => {
         bottomLine: 'Go for it.',
       },
     };
-    vi.mocked(generateOpportunityBrief).mockResolvedValue(mockBrief as any);
+    vi.mocked(generateOpportunityBrief).mockResolvedValue(mockBrief);
 
     const req = new NextRequest('http://localhost/api/analyze', {
       method: 'POST',

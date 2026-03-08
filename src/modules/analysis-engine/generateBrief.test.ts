@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { generateOpportunityBrief, analysisSchema } from './generateBrief';
-import { generateObject } from 'ai';
+import { generateObject, GenerateObjectResult } from 'ai';
 import { SYSTEM_PROMPT } from './prompts';
 
 vi.mock('ai', () => ({
@@ -70,7 +70,7 @@ describe('generateOpportunityBrief', () => {
 
     vi.mocked(generateObject).mockResolvedValue({
       object: mockOutput,
-    } as any);
+    } as GenerateObjectResult<typeof mockOutput>);
 
     const inputIdea = 'An idea for a new startup';
     await generateOpportunityBrief(inputIdea);
@@ -100,7 +100,7 @@ describe('generateOpportunityBrief', () => {
 
     vi.mocked(generateObject).mockResolvedValue({
       object: mockOutput,
-    } as any);
+    } as GenerateObjectResult<typeof mockOutput>);
 
     const result = await generateOpportunityBrief('Test idea');
     expect(result.scoring.overallScore).toBe(10);

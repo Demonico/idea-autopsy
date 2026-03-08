@@ -1,3 +1,4 @@
+/// <reference types="@vitest/browser/matchers" />
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-react';
 import { IdeaInputForm } from './IdeaInputForm';
@@ -95,8 +96,42 @@ describe('IdeaInputForm', () => {
     await button.click();
 
     await vi.waitFor(async () => {
-      await expect.element(screen.getByText('Analyzing Idea...')).toBeInTheDocument();
+      await expect.element(screen.getByText('Deconstructing idea...')).toBeInTheDocument();
       await expect.element(button).toBeDisabled();
     });
+  });
+
+  it('should cycle through loading messages while loading', async () => {
+    vi.useFakeTimers();
+    const screen = await render(<IdeaInputForm/>);
+
+    const textarea = screen.getByPlaceholder('Describe your startup idea or a problem you want to solve...');
+    const button = await vi.waitFor(() => screen.getByRole('button'));
+
+    vi.stubGlobal('fetch', vi.fn().mockImplementation(() => new Promise(() => {
+      // Never resolve so we stay in loading state
+    })));
+
+    await textarea.fill('This is a very good and valid startup idea for testing purposes.');
+    await vi.waitFor(async () => {
+      await expect.element(button).not.toBeDisabled();
+    });
+
+    await button.click();
+
+    // Check first message
+    await vi.waitFor(async () => {
+      await expect.element(screen.getByText('Deconstructing idea...')).toBeInTheDocument();
+    });
+
+    // Advance timer to next message (2.5s)
+    await vi.advanceTimersByTimeAsync(2500);
+    await expect.element(screen.getByText('Scanning market signals...')).toBeInTheDocument();
+
+    // Advance to next (2.5s)
+    await vi.advanceTimersByTimeAsync(2500);
+    await expect.element(screen.getByText('Analyzing risks and ROI...')).toBeInTheDocument();
+
+    vi.useRealTimers();
   });
 });

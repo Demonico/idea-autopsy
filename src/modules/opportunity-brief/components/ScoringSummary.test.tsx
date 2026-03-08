@@ -35,7 +35,7 @@ describe('ScoringSummary', () => {
     const screen = await render(<ScoringSummary scoring={ mockScoring }/>);
 
     await expect.element(screen.getByText('7.5')).toBeInTheDocument();
-    await expect.element(screen.getByText('7.5')).toHaveClass('text-amber-600');
+    await expect.element(screen.getByText('7.5')).toHaveClass('text-amber-700');
   });
 
   it('renders all dimension scores and labels', async () => {
@@ -78,8 +78,8 @@ describe('ScoringSummary', () => {
 
     const screen = await render(<ScoringSummary scoring={ lowScoring }/>);
 
-    await expect.element(screen.getByText('3.2')).toHaveClass('text-rose-600');
-    await expect.element(screen.getByText('2/10')).toHaveClass('text-rose-600');
+    await expect.element(screen.getByText('3.2')).toHaveClass('text-rose-700');
+    await expect.element(screen.getByText('2/10')).toHaveClass('text-rose-700');
   });
 
   it('applies emerald color for high scores', async () => {
@@ -90,6 +90,6 @@ describe('ScoringSummary', () => {
 
     const screen = await render(<ScoringSummary scoring={ highScoring }/>);
 
-    await expect.element(screen.getByText('9.1')).toHaveClass('text-emerald-600');
+    await expect.element(screen.getByText('9.1')).toHaveClass('text-emerald-700');
   });
 });

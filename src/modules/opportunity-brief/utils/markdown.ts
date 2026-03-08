@@ -10,7 +10,7 @@ export function generateMarkdown(brief: OpportunityBrief): string {
     `ID: ${brief.id}`,
     '',
     '## 1. Opportunity Scorecard',
-    `**Overall Score: ${brief.overallScore} / 10**`,
+    `**Overall Score: ${brief.scoring.overallScore} / 10**`,
     '',
     `> "${brief.scoring.scoreExplanation}"`,
     '',
