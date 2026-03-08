@@ -13,7 +13,58 @@ describe('POST /api/analyze', () => {
   });
 
   it('should return 200 and the brief on valid input', async () => {
-    const mockBrief = { id: '123', inputIdea: 'Valid idea content here', scoring: { overallScore: 8 } };
+    const mockBrief = {
+      id: '123',
+      inputIdea: 'Valid idea content here',
+      problemDefinition: {
+        coreProblem: 'Test problem',
+        painPoint: 'Test pain',
+        affectedWorkflows: ['Workflow A'],
+        urgency: 'High',
+      },
+      targetCustomer: {
+        segment: 'SaaS companies',
+        persona: 'Support Manager',
+        environment: 'Cloud',
+        buyerVsUser: 'Manager pays, team uses',
+      },
+      demandSignals: {
+        source: 'Qualitative',
+        momentumSummary: 'Good momentum',
+        signalStrength: 8,
+      },
+      competitiveLandscape: {
+        alternatives: [],
+        marketContext: 'Test market',
+      },
+      mvpScope: {
+        coreAction: 'Test action',
+        features: ['Feature 1'],
+        simplifiedArchitecture: 'Test arch',
+        timeToValue: 'Weeks',
+      },
+      keyRisks: {
+        assumptions: [],
+        killShot: 'Test kill shot',
+      },
+      scoring: {
+        overallScore: 8,
+        dimensions: {
+          monetizationPotential: { score: 8, explanation: 'Good' },
+          buyerClarity: { score: 8, explanation: 'Good' },
+          demandSignal: { score: 8, explanation: 'Good' },
+          buildability: { score: 8, explanation: 'Good' },
+          competitionDensity: { score: 8, explanation: 'Good' },
+        },
+        scoreExplanation: 'Great idea.',
+      },
+      finalVerdict: {
+        isPromising: true,
+        successConditions: ['Condition 1'],
+        firstTest: 'Test 1',
+        bottomLine: 'Go for it.',
+      },
+    };
     vi.mocked(generateOpportunityBrief).mockResolvedValue(mockBrief as any);
 
     const req = new NextRequest('http://localhost/api/analyze', {

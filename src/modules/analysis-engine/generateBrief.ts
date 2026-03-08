@@ -6,7 +6,7 @@ import { OpportunityBrief } from '@/shared/types';
 import { calculateOverallScore } from '../scoring/score';
 
 // Zod schema matching the OpportunityBrief interface
-const analysisSchema = z.object({
+export const analysisSchema = z.object({
   problemDefinition: z.object({
     coreProblem: z.string().describe('Clinical description of the specific "hair-on-fire" problem.'),
     painPoint: z.string().describe('Why this problem matters and the cost of inaction.'),

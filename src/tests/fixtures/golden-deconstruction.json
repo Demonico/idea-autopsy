@@ -1,0 +1,105 @@
+{
+  "id": "golden-123",
+  "inputIdea": "Tax automation for solo developers that syncs with their bank accounts and automatically categorizes expenses for maximum deductions.",
+  "createdAt": "2026-03-08T12:00:00.000Z",
+  "problemDefinition": {
+    "coreProblem": "Manual tax categorization is time-consuming and prone to missing valid business deductions, leading to overpayment or audit risk.",
+    "painPoint": "Solo developers often spend 10+ hours a month or thousands of dollars on accountants for tasks that should be automated.",
+    "affectedWorkflows": [
+      "Monthly bookkeeping",
+      "Quarterly estimated tax payments",
+      "Annual tax filing prep"
+    ],
+    "urgency": "High"
+  },
+  "targetCustomer": {
+    "segment": "Solo developers and freelancers earning $100k-$500k ARR.",
+    "persona": "The high-income solo dev who values time over money but finds existing enterprise accounting software too bloated.",
+    "environment": "Modern web browser, mobile apps, and bank API integrations.",
+    "buyerVsUser": "The developer is both the buyer and the user, streamlining the sales cycle."
+  },
+  "demandSignals": {
+    "source": "Qualitative",
+    "momentumSummary": "Strong upward trend in the solo-entrepreneur economy; increasing developer focus on time-optimization tools.",
+    "signalStrength": 9
+  },
+  "competitiveLandscape": {
+    "alternatives": [
+      {
+        "name": "QuickBooks",
+        "type": "SaaS",
+        "description": "Powerful but overly complex and expensive for solo operators."
+      },
+      {
+        "name": "Spreadsheets",
+        "type": "Manual",
+        "description": "The current standard; error-prone and requires manual effort."
+      },
+      {
+        "name": "Local Accountants",
+        "type": "Manual",
+        "description": "Expensive; often provides slower feedback than a real-time app."
+      }
+    ],
+    "marketContext": "The market is moving away from generic bookkeeping toward role-specific financial automation."
+  },
+  "mvpScope": {
+    "coreAction": "Sync one bank account and automatically categorize 90% of expenses for a specific tax year.",
+    "features": [
+      "Plaid API integration for bank sync",
+      "Rule-based expense categorization (AI-assisted)",
+      "Real-time estimated tax calculator",
+      "One-click export for tax filings"
+    ],
+    "simplifiedArchitecture": "Next.js frontend, Plaid API for data, and a lightweight LLM agent for categorization logic.",
+    "timeToValue": "Days"
+  },
+  "keyRisks": {
+    "assumptions": [
+      {
+        "assumption": "Plaid/Bank APIs provide enough granularity for accurate tax categorization.",
+        "riskLevel": "Medium"
+      },
+      {
+        "assumption": "Solo developers trust an automated system with their sensitive financial data.",
+        "riskLevel": "High"
+      }
+    ],
+    "killShot": "Regulatory shift or bank API lockout that prevents automated categorization from being legally defensible."
+  },
+  "scoring": {
+    "dimensions": {
+      "monetizationPotential": {
+        "score": 9,
+        "explanation": "High ROI: Saving $2,000 in taxes easily justifies a $300/year subscription."
+      },
+      "buyerClarity": {
+        "score": 10,
+        "explanation": "Hyper-specific segment where the user is the buyer."
+      },
+      "demandSignal": {
+        "score": 9,
+        "explanation": "Clear macro trend toward the 'Individual Economy'."
+      },
+      "buildability": {
+        "score": 7,
+        "explanation": "Requires robust security and Plaid integration, but the core logic is manageable."
+      },
+      "competitionDensity": {
+        "score": 6,
+        "explanation": "Incumbents like QuickBooks are strong but lack the specific dev-first focus."
+      }
+    },
+    "scoreExplanation": "This is a top-tier opportunity because it solves a universal pain point (taxes) for a high-income, tech-savvy audience that is currently underserved by generic solutions.",
+    "overallScore": 8.5
+  },
+  "finalVerdict": {
+    "isPromising": true,
+    "successConditions": [
+      "Achieving 95%+ categorization accuracy",
+      "Building trust through transparent security practices"
+    ],
+    "firstTest": "Create a landing page with a waitlist and a simple 'categorize my CSV' tool to test demand and accuracy.",
+    "bottomLine": "High potential B2B SaaS for a specific, growing niche. Build it."
+  }
+}
