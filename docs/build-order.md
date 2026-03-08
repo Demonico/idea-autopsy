@@ -90,6 +90,7 @@ Deliverables:
 - Error states
 - Copy-to-clipboard
 - Optional Markdown export
+- **Shareable URL:** Implementation of stateless sharing via URL encoding (Base64).
 
 Outcome:
 
