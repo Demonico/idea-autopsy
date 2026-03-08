@@ -1,0 +1,138 @@
+---
+description: Core project standards for the Idea Autopsy app
+alwaysApply: true
+---
+
+# Idea Autopsy — Project Foundation Rules
+
+## Project Context
+
+This project is a lean, vertical-slice build.
+Favor simple, direct solutions over abstraction-heavy architecture.
+Do not overengineer early slices.
+
+## Stack
+
+Use the stack that exists in this repository unless explicitly told otherwise.
+
+- Next.js App Router
+- React
+- TypeScript
+- Tailwind CSS
+- ESLint
+- pnpm
+
+## Dependency Policy
+
+- Do not introduce new dependencies unless explicitly requested.
+- Do not assume the presence of libraries that are not in `package.json`.
+- Prefer built-in React, Next.js, and browser/platform features first.
+- When suggesting a new dependency, explain why the built-in approach is not sufficient.
+
+## General Coding Standards
+
+- Use TypeScript for all application code.
+- Use functional components and functions. Avoid classes unless truly required.
+- Prefer named exports by default.
+- Use descriptive variable and function names.
+- Keep files focused and cohesive.
+- Prefer straightforward code over clever abstractions.
+- Remove dead code, unused imports, and unused variables.
+- Use early returns and guard clauses to keep logic readable.
+- Handle loading, empty, and error states explicitly.
+
+## Next.js App Router Defaults
+
+- Prefer Server Components by default.
+- Add `'use client'` only when browser APIs, client-side interactivity, or client state are required.
+- Prefer server-side data fetching when possible.
+- Keep route handlers and server actions thin.
+- Co-locate code with the route or feature when it improves clarity.
+- Do not recreate framework features manually when Next.js already provides them.
+
+## React Guidance
+
+- Keep components small and composable.
+- Extract reusable logic into custom hooks only when reuse or clarity justifies it.
+- Do not add memoization (`useMemo`, `useCallback`, `React.memo`) by default.
+- Only optimize after there is a clear reason.
+- Avoid unnecessary `useEffect`. Prefer declarative data flow and derived values.
+- Do not use `prop-types`. Use TypeScript types for props.
+
+## State Management
+
+- Prefer local component state first.
+- Lift state up only when needed.
+- Do not introduce a global state library unless the app has a real shared-state problem that justifies it.
+- Prefer URL state, server state, and component state before adding client-side global state.
+
+## Styling
+
+- Use Tailwind CSS for styling.
+- Do not introduce CSS-in-JS, Stylus, Sass modules, or other styling systems unless explicitly requested.
+- Prefer utility classes and simple composition.
+- Use semantic HTML and accessible markup.
+- Build mobile-first layouts.
+
+## UI Components
+
+- Prefer simple app-specific components first.
+- Do not assume shadcn/ui, Radix, MUI, Chakra, or other UI libraries are available.
+- If a reusable component pattern emerges, extract it after repetition is real.
+
+## Forms and Validation
+
+- Use native React and browser capabilities unless a more robust form solution is explicitly needed.
+- Validate critical input on the server.
+- Do not assume react-hook-form, Zod, Joi, or other validation libraries are installed.
+
+## Data and API Design
+
+- Keep API boundaries simple and explicit.
+- Prefer clear input/output types.
+- Normalize data only when it materially improves the code.
+- Avoid premature generic abstractions.
+- Make it easy to swap mocked data for real integrations later.
+
+## Testing
+
+- Do not assume a testing framework is installed.
+- When writing code, keep logic testable and separable.
+- If tests are added later, align with the existing repo setup rather than inventing a new testing stack.
+
+## Performance and Reliability
+
+- Minimize client-side JavaScript.
+- Avoid unnecessary rerenders and unnecessary client components.
+- Prefer simple rendering paths.
+- Handle failure cases explicitly.
+- Do not optimize prematurely, but do avoid obvious waste.
+
+## Accessibility
+
+- Use semantic HTML first.
+- Ensure interactive elements are keyboard accessible.
+- Use ARIA only when semantic HTML is insufficient.
+- Include labels, alt text, and accessible names where appropriate.
+
+## Project Awareness
+
+Before making changes, align with:
+1. the current `package.json`
+2. the existing repository structure
+3. the project docs and specs
+4. the current vertical-slice stage of the app
+
+## What to Avoid
+
+- Do not add libraries just because they are common.
+- Do not invent patterns that are not already needed.
+- Do not drift toward generic React SPA patterns when Next.js App Router provides a better default.
+- Do not introduce `prop-types`.
+- Do not mix styling systems.
+- Do not build broad internal frameworks for a small feature.
+
+## Preferred Mindset
+
+Build the smallest clean solution that fits the current slice.
+Leave the codebase ready for the next slice, but do not architect far beyond current needs.
