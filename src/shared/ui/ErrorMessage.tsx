@@ -1,13 +1,28 @@
+'use client';
+
 import React from 'react';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 interface Props {
   title?: string;
   message: string;
   onRetry?: () => void;
   onBack?: () => void;
+  backHref?: string;
 }
 
-export function ErrorMessage({ title = 'Something went wrong', message, onRetry, onBack }: Props) {
+export function ErrorMessage({ title = 'Something went wrong', message, onRetry, onBack, backHref = '/' }: Props) {
+  const router = useRouter();
+
+  const handleBack = () => {
+    if (onBack) {
+      onBack();
+    } else {
+      router.push(backHref);
+    }
+  };
+
   return (
     <div className="flex min-h-[40vh] items-center justify-center p-6">
       <div className="w-full max-w-md space-y-6 rounded-2xl border-2 border-red-50 bg-red-50/50 p-8 text-center dark:border-red-900/20 dark:bg-red-950/10">
@@ -24,19 +39,17 @@ export function ErrorMessage({ title = 'Something went wrong', message, onRetry,
           {onRetry && (
             <button
               onClick={onRetry}
-              className="w-full rounded-xl bg-red-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-red-700 transition-colors shadow-sm"
+              className="w-full rounded-xl bg-red-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-red-700 transition-colors shadow-sm cursor-pointer"
             >
               Try again
             </button>
           )}
-          {onBack && (
-            <button
-              onClick={onBack}
-              className="w-full rounded-xl bg-white px-4 py-2.5 text-sm font-semibold text-zinc-900 border border-zinc-200 hover:bg-zinc-50 transition-colors shadow-sm dark:bg-zinc-900 dark:text-zinc-100 dark:border-zinc-800 dark:hover:bg-zinc-800"
-            >
-              Go back home
-            </button>
-          )}
+          <button
+            onClick={handleBack}
+            className="w-full rounded-xl bg-white px-4 py-2.5 text-sm font-semibold text-zinc-900 border border-zinc-200 hover:bg-zinc-50 transition-colors shadow-sm dark:bg-zinc-900 dark:text-zinc-100 dark:border-zinc-800 dark:hover:bg-zinc-800 cursor-pointer"
+          >
+            Go back home
+          </button>
         </div>
       </div>
     </div>

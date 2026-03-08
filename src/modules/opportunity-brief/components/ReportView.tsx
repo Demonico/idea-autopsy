@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { OpportunityBrief } from '@/shared/types';
 import { ReportHeader } from './ReportHeader';
@@ -11,64 +11,19 @@ import { MVPSection } from './MVPSection';
 import { CompetitionSection } from './CompetitionSection';
 import { RiskSection } from './RiskSection';
 import { VerdictSection } from './VerdictSection';
-import { decodeBrief, encodeBrief } from '../utils/sharing';
+import { encodeBrief } from '../utils/sharing';
 import { generateMarkdown } from '../utils/markdown';
-import { ErrorMessage } from '@/shared/ui/ErrorMessage';
 
 interface Props {
-  encodedData?: string;
+  brief: OpportunityBrief;
 }
 
-export function ReportView({ encodedData }: Props) {
-  const [brief, setBrief] = useState<OpportunityBrief | null>(null);
-  const [error, setError] = useState<{ title: string; message: string } | null>(null);
+export function ReportView({ brief }: Props) {
   const [isCopying, setIsCopying] = useState(false);
   const [isSharing, setIsSharing] = useState(false);
   const router = useRouter();
 
-  useEffect(() => {
-    if (encodedData) {
-      const decoded = decodeBrief(encodedData);
-      if (decoded) {
-        setBrief(decoded);
-        return;
-      } else {
-        setError({
-          title: 'Invalid Link',
-          message: 'The shared link appears to be invalid or corrupted. Please check the URL and try again.',
-        });
-        return;
-      }
-    }
-
-    const stored = sessionStorage.getItem('last_brief');
-    if (stored) {
-      try {
-        setBrief(JSON.parse(stored));
-      } catch (err) {
-        console.error('Failed to parse brief:', err);
-        setError({
-          title: 'Analysis Not Found',
-          message: 'We couldn\'t find your recent analysis. Please try analyzing a new idea.',
-        });
-      }
-    } else {
-      router.push('/');
-    }
-  }, [router, encodedData]);
-
-  if (error) {
-    return (
-      <ErrorMessage 
-        title={error.title} 
-        message={error.message} 
-        onBack={() => router.push('/')} 
-      />
-    );
-  }
-
   const handleCopyToClipboard = async () => {
-    if (!brief) return;
     setIsCopying(true);
     const md = generateMarkdown(brief);
     await navigator.clipboard.writeText(md);
@@ -76,7 +31,6 @@ export function ReportView({ encodedData }: Props) {
   };
 
   const handleShare = async () => {
-    if (!brief) return;
     setIsSharing(true);
     const encoded = encodeBrief(brief);
     const url = `${window.location.origin}${window.location.pathname}?data=${encoded}`;
@@ -85,7 +39,6 @@ export function ReportView({ encodedData }: Props) {
   };
 
   const handleDownload = () => {
-    if (!brief) return;
     const md = generateMarkdown(brief);
     const blob = new Blob([md], { type: 'text/markdown' });
     const url = URL.createObjectURL(blob);
@@ -97,14 +50,6 @@ export function ReportView({ encodedData }: Props) {
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
   };
-
-  if (!brief) {
-    return (
-      <div className="flex min-h-[60vh] items-center justify-center">
-        <p className="text-zinc-500 animate-pulse">Loading analysis...</p>
-      </div>
-    );
-  }
 
   return (
     <div className="mx-auto max-w-3xl space-y-16 bg-white p-8 sm:p-16 shadow-sm dark:bg-zinc-950 dark:shadow-none rounded-2xl border border-zinc-100 dark:border-zinc-900">

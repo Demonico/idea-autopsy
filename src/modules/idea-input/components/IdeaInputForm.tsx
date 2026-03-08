@@ -3,6 +3,7 @@
 import { validateIdea } from '@/shared/utils/validation';
 import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
+import { encodeBrief } from '@/modules/opportunity-brief/utils/sharing';
 
 const LOADING_MESSAGES = [
   "Deconstructing idea...",
@@ -54,9 +55,9 @@ export function IdeaInputForm() {
 
       const brief = await response.json();
 
-      // Store in sessionStorage and navigate
-      sessionStorage.setItem('last_brief', JSON.stringify(brief));
-      router.push('/report');
+      // Navigate with encoded data (stateless sharing)
+      const encoded = encodeBrief(brief);
+      router.push(`/report?data=${encoded}`);
     } catch (err) {
       const message = err instanceof Error ? err.message : 'An unexpected error occurred';
       setError(message);
