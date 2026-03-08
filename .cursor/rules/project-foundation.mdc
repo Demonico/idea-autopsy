@@ -41,6 +41,13 @@ Use the stack that exists in this repository unless explicitly told otherwise.
 - Remove dead code, unused imports, and unused variables.
 - Use early returns and guard clauses to keep logic readable.
 - Handle loading, empty, and error states explicitly.
+- The agent MUST NOT modify any hidden files (files starting with a dot, e.g., `.gitignore`, `.env.local`, `.eslintrc.json`) unless explicitly instructed by the user.
+
+## Dependency Management
+
+- The agent MUST NOT run `pnpm install`, `pnpm add`, or any other commands that modify dependencies or the `node_modules` folder.
+- This prevents the creation of a local `.pnpm-store` in the workspace due to sandbox isolation.
+- If new dependencies are required for a task, the agent must inform the user and ask them to install the specific packages manually.
 
 ## Next.js App Router Defaults
 
