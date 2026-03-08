@@ -1,0 +1,109 @@
+---
+description: Testing standards and tool constraints for the Idea Autopsy app
+globs:
+  - "**/*.test.ts"
+  - "**/*.test.tsx"
+  - "**/*.spec.ts"
+  - "**/*.spec.tsx"
+  - "**/tests/**"
+---
+# Idea Autopsy — Testing Rules
+
+## Testing Philosophy
+
+- Write tests where they reduce meaningful risk.
+- Prefer a small number of high-value tests over a large number of brittle tests.
+- Prefer behavior and outcomes over implementation details.
+- Keep tests readable, focused, and easy to maintain.
+- Avoid low-value test volume.
+
+## Testing Stack
+
+This project uses:
+- Vitest for unit tests
+- vitest-browser-react for React component tests
+
+Do not use React Testing Library.
+Do not use Jest.
+Do not use Cypress.
+Do not generate Playwright tests.
+Do not introduce alternative testing frameworks unless explicitly requested.
+
+## What to Test First
+
+Prioritize tests for:
+1. opportunity scoring logic
+2. idea analysis transformations
+3. demand-signal parsing and normalization
+4. report-generation logic
+5. route handlers and server-side business logic
+6. interactive UI behavior with meaningful user impact
+
+Lower priority:
+- trivial presentational components
+- thin wrappers around framework features
+- markup-only components with minimal behavior
+- code with little regression risk
+
+## Unit Test Guidance
+
+- Use Vitest for pure functions and business logic.
+- Prefer testing plain functions with clear inputs and outputs.
+- Cover edge cases, invalid inputs, fallback behavior, and expected failure paths.
+- Keep pure logic separate from framework code when practical.
+- Prefer small, focused tests with clear intent.
+- Avoid excessive mocking.
+- Mock only true boundaries such as external APIs, clocks, randomness, and unstable dependencies.
+
+## Component Test Guidance
+
+- Use vitest-browser-react for React component tests.
+- Test behavior through rendered UI and user interaction.
+- Prefer assertions based on visible output and meaningful behavior.
+- Avoid testing implementation details, internal state shape, or private helper behavior through the component surface.
+- Test important loading, empty, error, and success states when they matter to the user.
+- Do not over-test simple presentational components.
+- Avoid snapshot-heavy testing unless a snapshot provides clear value.
+
+## Server and Architecture Guidance
+
+- Keep business logic out of route files when practical.
+- Keep route handlers thin and move important logic into testable modules.
+- Structure code so important logic can be tested with Vitest without requiring full framework bootstrapping.
+- Prefer testable functions over deeply coupled framework-specific logic.
+
+## Good Testing Habits
+
+- Use clear test names that describe behavior.
+- Keep setup minimal and explicit.
+- Prefer realistic test data over overly artificial fixtures.
+- Keep fixtures small and easy to understand.
+- Write tests that protect against regressions, not tests that simply restate the implementation.
+
+## What to Avoid
+
+- Do not use React Testing Library.
+- Do not use Jest.
+- Do not use Cypress.
+- Do not generate Playwright tests.
+- Do not add component-testing libraries outside the approved stack.
+- Do not generate tests for code with no meaningful behavior.
+- Do not tightly couple tests to fragile markup unless that markup is the behavior being verified.
+- Do not add a large testing footprint before the project actually needs it.
+
+## Test File Conventions
+
+- Use *.test.ts for unit tests.
+- Use *.test.tsx for React component tests.
+- Place tests next to the source file or inside a tests directory when that improves clarity.
+- Keep test file placement consistent within a feature or slice.
+
+## Project Fit
+
+This project is being built in lean vertical slices.
+
+Testing should support that approach:
+- protect high-risk logic early
+- cover critical behavior
+- avoid slowing down delivery with low-value test volume
+- stay aligned with the current slice instead of overbuilding test infrastructure
