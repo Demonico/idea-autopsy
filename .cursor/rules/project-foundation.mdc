@@ -35,7 +35,8 @@ Use the stack that exists in this repository unless explicitly told otherwise.
 - Use functional components and functions. Avoid classes unless truly required.
 - Prefer named exports by default.
 - Use descriptive variable and function names.
-- Keep files focused and cohesive.
+- Keep files focused and cohesive. 
+- Components files should not be more than 150 lines.
 - Prefer straightforward code over clever abstractions.
 - Remove dead code, unused imports, and unused variables.
 - Use early returns and guard clauses to keep logic readable.
@@ -79,6 +80,7 @@ Use the stack that exists in this repository unless explicitly told otherwise.
 - Prefer simple app-specific components first.
 - Do not assume shadcn/ui, Radix, MUI, Chakra, or other UI libraries are available.
 - If a reusable component pattern emerges, extract it after repetition is real.
+- Never include development metadata or the agent's instructions as text in the UI (e.g., "Slice 1", "Build Order"). The UI should only contain application-specific labels and content.
 
 ## Forms and Validation
 

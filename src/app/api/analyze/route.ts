@@ -1,20 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { generateOpportunityBrief } from '@/modules/analysis-engine/generateBrief';
+import { validateIdea } from '@/shared/utils/validation';
 
 export async function POST(req: NextRequest) {
   try {
     const { idea } = await req.json();
 
-    if (!idea || typeof idea !== 'string') {
-      return NextResponse.json({ error: 'Idea is required' }, { status: 400 });
-    }
-
-    if (idea.length < 20) {
-      return NextResponse.json({ error: 'Idea is too short (min 20 characters)' }, { status: 400 });
-    }
-
-    if (idea.length > 1000) {
-      return NextResponse.json({ error: 'Idea is too long (max 1000 characters)' }, { status: 400 });
+    const { isValid, error } = validateIdea(idea || '');
+    if (!isValid) {
+      return NextResponse.json({ error }, { status: 400 });
     }
 
     const brief = await generateOpportunityBrief(idea);

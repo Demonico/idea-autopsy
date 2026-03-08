@@ -86,9 +86,3 @@ export interface FinalVerdict {
   firstTest: string; // What should a founder test first?
   bottomLine: string; // Concise final summary
 }
-
-export interface SearchKeywords {
-  primary: string;
-  alternatives: string[];
-  category: string;
-}
