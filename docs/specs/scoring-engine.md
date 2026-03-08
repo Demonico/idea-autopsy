@@ -64,6 +64,6 @@ The Scoring Engine's explanations should be:
 ---
 
 ## Implementation Notes
-- Scoring logic should reside in a standalone module `src/features/scoring/score.ts`.
-- Weighted calculations should be easily adjustable in a separate `src/features/scoring/weights.ts` file.
+- Scoring logic should reside in a standalone module `src/modules/scoring/score.ts`.
+- Weighted calculations should be easily adjustable in a separate `src/modules/scoring/weights.ts` file.
 - The Engine must accept both the `AnalysisEngine` output and the `SignalLayer` data.

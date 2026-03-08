@@ -116,11 +116,11 @@ The system must still produce a complete report if signals are unavailable.
 
 ---
 
-# Suggested Feature Structure
+# Suggested Module Structure
 
 ```
 src/
-  features/
+  modules/
 
     idea-input/
       components/
@@ -155,7 +155,7 @@ src/
     types/
 ```
 
-This organization allows features to evolve independently while keeping the architecture compatible with vertical slice development.
+This organization allows modules to evolve independently while keeping the architecture compatible with vertical slice development.
 
 ---
 
