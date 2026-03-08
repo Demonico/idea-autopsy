@@ -4,7 +4,7 @@
 The Analysis Engine is the core intelligence of the system. It deconstructs a raw startup idea into the structured sections of the `OpportunityBrief` (defined in `data-model.md`).
 
 ## Implementation Details
-- **Primary Model:** OpenAI GPT-4o or Claude 3.5 Sonnet.
+- **Primary Model:** OpenAI gpt-5-mini or Claude 3.5 Sonnet.
 - **Output Format:** JSON via Structured Output (e.g., Vercel AI SDK `generateObject` with Zod).
 
 ## Persona: "The Skeptical but Fair Investor"

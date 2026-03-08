@@ -65,7 +65,7 @@ const analysisSchema = z.object({
 
 export async function generateOpportunityBrief(inputIdea: string): Promise<OpportunityBrief> {
   const { object } = await generateObject({
-    model: openai('gpt-4o'),
+    model: openai('gpt-5-mini'),
     schema: analysisSchema,
     system: SYSTEM_PROMPT,
     prompt: `Deconstruct this startup idea: ${inputIdea}`,
