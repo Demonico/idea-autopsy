@@ -3,45 +3,13 @@
 ## Overview
 The Analysis Engine is responsible for the core logic of deconstructing a startup idea into a structured opportunity brief. It uses an LLM to perform qualitative analysis based on a fixed framework.
 
-## Technical Details
+## Analysis Schema
+The core data structure is defined in [data-model.md](./data-model.md). The Analysis Engine is responsible for populating the `OpportunityBrief` object.
+
+## Implementation Details
 - **Primary Model:** OpenAI GPT-4o or Claude 3.5 Sonnet.
 - **Output Format:** JSON (using structured output mode or Zod schema).
 
-## Analysis Schema (Draft)
-```typescript
-interface OpportunityAnalysis {
-  problemDefinition: {
-    coreProblem: string;
-    painPoint: string;
-    urgency: string;
-  };
-  targetCustomer: {
-    segment: string;
-    persona: string;
-    environment: string;
-  };
-  mvpScope: {
-    coreAction: string;
-    features: string[];
-    architecture: string;
-  };
-  risks: {
-    assumptions: string[];
-    killShot: string;
-  };
-  scoring: {
-    dimensions: {
-      demandSignal: { score: number; reason: string };
-      buyerClarity: { score: number; reason: string };
-      monetizationPotential: { score: number; reason: string };
-      competitionDensity: { score: number; reason: string };
-      buildability: { score: number; reason: string };
-    };
-    overallScore: number;
-    summary: string;
-  };
-}
-```
 
 ## Prompt Engineering
 - **System Persona:** A skeptical but fair startup investor. Avoid AI-typical "enthusiastic" language.
