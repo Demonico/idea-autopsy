@@ -29,10 +29,6 @@ interface OpportunityAnalysis {
     assumptions: string[];
     killShot: string;
   };
-  signals: {
-    searchKeywords: string[]; // 1-3 keywords for Google Trends
-    qualitativeDemand: string; // Qualitative analysis if external data is missing
-  };
   scoring: {
     dimensions: {
       demandSignal: { score: number; reason: string };

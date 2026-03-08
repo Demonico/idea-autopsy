@@ -50,6 +50,19 @@ Typical motivations:
 5. System produces a scored opportunity brief
 6. User reviews the output and decides whether the idea is worth exploring further
 
+---
+
+## High-Level System Flow
+
+1. User submits idea through Input Layer
+2. Analysis Engine interprets idea and generates framework sections
+3. Signal Layer optionally retrieves external demand signals
+4. Scoring Engine evaluates opportunity dimensions
+5. Report Generator assembles final opportunity brief
+6. UI renders report to user
+
+---
+
 Example inputs:
 
 * AI that summarizes support tickets into product insights
@@ -252,7 +265,7 @@ This is an analysis tool, not a startup operating system.
 ### Analysis Pipeline
 
 * Parse the user input into an internal analysis object
-* Identify likely problem domain, user context, and search-friendly keywords
+* Identify likely problem domain and user context
 * Generate each section of the brief using a repeatable framework
 * Attempt to retrieve external demand signals (optimized for speed/parallelization)
 * Apply the scoring rubric
@@ -417,7 +430,7 @@ Responsible for collecting and validating the user’s idea.
 
 ### 2. Analysis Engine
 
-Responsible for deconstructing the idea into framework sections, extracting search keywords, and generating scoring explanations.
+Responsible for deconstructing the idea into framework sections and generating scoring explanations.
 
 ### 3. Signal Layer
 
@@ -501,12 +514,19 @@ The hackathon version should include:
 * idea input form with basic validation
 * structured opportunity brief generation
 * scoring system with weighted dimensions
-* optional external demand signal integration (e.g., Google Trends)
 * clean report-style results page
 * copy to clipboard functionality
 * optional download as Markdown (.md)
 
-That is enough for a strong first version.
+---
+
+## Stretch Goals (Optional)
+
+These features should only be attempted if the core loop is fully stable:
+
+* **Optional External Signal Integration (e.g., Google Trends):** Retrieve and normalize demand data.
+* **Loading UI Phase Transitions:** "Phased" feedback (Keywords → Analysis → Score).
+* **Enhanced PDF/Notion Export:** Higher quality document formatting.
 
 ---
 

@@ -1,6 +1,7 @@
-# Feature Spec: Signal Layer
+# Feature Spec: Signal Layer (Stretch Goal)
 
 ## Overview
+**Status: Optional / Stretch Goal.** This layer should only be implemented after the core analysis engine and reporting UI are stable.
 The Signal Layer fetches external demand signals to ground the qualitative analysis in quantitative data.
 
 ## API Strategy
