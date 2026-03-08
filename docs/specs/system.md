@@ -46,7 +46,7 @@ Typical motivations:
 1. User enters a startup idea, problem statement, or product concept
 2. System interprets the input and identifies the core problem area
 3. System analyzes the opportunity using a fixed framework
-4. System gathers supporting demand signals such as Google Trends
+4. System gathers supporting demand signals when available (for example Google Trends or other external indicators)
 5. System produces a scored opportunity brief
 6. User reviews the output and decides whether the idea is worth exploring further
 
@@ -66,7 +66,8 @@ The system must accept a freeform text idea from the user.
 
 Input expectations:
 
-* one sentence to a short paragraph
+* one sentence to a short paragraph (max 1000 characters)
+* single startup idea or problem statement only
 * rough, messy input is acceptable
 * the system should not require the user to structure their idea first
 
@@ -118,9 +119,7 @@ Examples:
 Purpose:
 Ground the idea in observable external signals when possible.
 
-Primary source for V1:
-
-* Google Trends
+External signals are optional for the hackathon build. If no external signal data is available, the Analysis Engine must perform a qualitative demand analysis based on market common knowledge to ensure a complete brief.
 
 Possible outputs:
 
@@ -247,14 +246,15 @@ This is an analysis tool, not a startup operating system.
 ### Input
 
 * Accept freeform idea input
+* Validate input to ensure it contains enough context for analysis; reject "garbage" or empty inputs
 * Trigger analysis from a single CTA
 
 ### Analysis Pipeline
 
 * Parse the user input into an internal analysis object
-* Identify likely problem domain and user context
+* Identify likely problem domain, user context, and search-friendly keywords
 * Generate each section of the brief using a repeatable framework
-* Pull demand signals from at least one external source in V1
+* Attempt to retrieve external demand signals (optimized for speed/parallelization)
 * Apply the scoring rubric
 * Produce a final structured report
 
@@ -269,11 +269,11 @@ This is an analysis tool, not a startup operating system.
 
 ## Data and Signal Requirements
 
-### V1 External Signal Source
+### Optional External Signal Sources
 
 **Google Trends**
 
-Use Google Trends to provide demand-related context.
+Google Trends can be used to provide demand-related context when available, but the system should not depend on it to complete the analysis.
 
 Potential data used:
 
@@ -290,6 +290,9 @@ Interpretation goals:
 
 Important note:
 The system may need to transform the raw idea into one or more trend-searchable keywords. This keyword selection logic should be treated as part of the analysis pipeline.
+
+**Zero Signal Policy:**
+If no trend data is found, the system should mark the signal as "Unknown/Emerging" and provide a neutral score (e.g., 5/10) with an explanation that the idea may be in a pioneer market, rather than penalizing it as a low-demand area.
 
 ---
 
@@ -325,11 +328,23 @@ A more crowded space should generally lower the score unless a clear wedge is vi
 Question:
 Can a useful MVP be built quickly and credibly by a small team or solo builder?
 
+Scoring note:
+Focus on "Time-to-Value"—higher scores for ideas that require minimal custom infrastructure or complex R&D.
+
 ### Overall Opportunity Score
 
 The overall score should be a derived aggregate of the above dimensions.
 
 The output should include a brief explanation of why the total score landed where it did.
+
+### Scoring Weights (V1)
+
+To ensure an "investor-style" perspective, the following weights are applied to the aggregate score:
+* **Monetization Potential:** 30%
+* **Buyer Clarity:** 25%
+* **Demand Signal:** 20%
+* **Buildability:** 15%
+* **Competition Density:** 10%
 
 ---
 
@@ -363,9 +378,8 @@ The product should feel like an analytical tool, not a chatbot.
 
 Optional stretch:
 
-* copy/export report
+* copy/export report to Markdown
 * regenerate analysis
-  n
 
 ---
 
@@ -403,11 +417,11 @@ Responsible for collecting and validating the user’s idea.
 
 ### 2. Analysis Engine
 
-Responsible for deconstructing the idea into the fixed framework sections.
+Responsible for deconstructing the idea into framework sections, extracting search keywords, and generating scoring explanations.
 
 ### 3. Signal Layer
 
-Responsible for fetching and normalizing demand-related signals such as Google Trends.
+Responsible for fetching and normalizing demand-related signals based on keywords provided by the Analysis Engine.
 
 ### 4. Scoring Engine
 
@@ -429,6 +443,9 @@ The analysis should:
 * show the logic behind scores
 * remain concise enough to read quickly
 
+**Persona & Tone:**
+The system must adopt a "Skeptical but Fair Investor" persona, especially for the **Idea Kill Shot**. It should be direct about risks and avoid AI-typical over-optimism.
+
 The brief should ideally feel useful even when the idea is weak.
 
 A weak idea should still generate a good analysis.
@@ -443,7 +460,7 @@ That means priorities are:
 
 * one polished end-to-end flow
 * clear and consistent output structure
-* basic external signal integration
+* optional external signal integration
 * strong demo quality
 
 That means lower priority items include:
@@ -481,11 +498,13 @@ This tool takes a rough startup idea and deconstructs it the way a founder, prod
 
 The hackathon version should include:
 
-* idea input form
+* idea input form with basic validation
 * structured opportunity brief generation
-* scoring system
-* Google Trends signal integration
+* scoring system with weighted dimensions
+* optional external demand signal integration (e.g., Google Trends)
 * clean report-style results page
+* copy to clipboard functionality
+* optional download as Markdown (.md)
 
 That is enough for a strong first version.
 

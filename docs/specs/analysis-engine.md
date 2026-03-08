@@ -1,0 +1,59 @@
+# Feature Spec: Analysis Engine
+
+## Overview
+The Analysis Engine is responsible for the core logic of deconstructing a startup idea into a structured opportunity brief. It uses an LLM to perform qualitative analysis based on a fixed framework.
+
+## Technical Details
+- **Primary Model:** OpenAI GPT-4o or Claude 3.5 Sonnet.
+- **Output Format:** JSON (using structured output mode or Zod schema).
+
+## Analysis Schema (Draft)
+```typescript
+interface OpportunityAnalysis {
+  problemDefinition: {
+    coreProblem: string;
+    painPoint: string;
+    urgency: string;
+  };
+  targetCustomer: {
+    segment: string;
+    persona: string;
+    environment: string;
+  };
+  mvpScope: {
+    coreAction: string;
+    features: string[];
+    architecture: string;
+  };
+  risks: {
+    assumptions: string[];
+    killShot: string;
+  };
+  signals: {
+    searchKeywords: string[]; // 1-3 keywords for Google Trends
+    qualitativeDemand: string; // Qualitative analysis if external data is missing
+  };
+  scoring: {
+    dimensions: {
+      demandSignal: { score: number; reason: string };
+      buyerClarity: { score: number; reason: string };
+      monetizationPotential: { score: number; reason: string };
+      competitionDensity: { score: number; reason: string };
+      buildability: { score: number; reason: string };
+    };
+    overallScore: number;
+    summary: string;
+  };
+}
+```
+
+## Prompt Engineering
+- **System Persona:** A skeptical but fair startup investor. Avoid AI-typical "enthusiastic" language.
+- **Scoring Focus:**
+  - **Buildability:** Prioritize "Time-to-Value" for solo/small teams.
+  - **Competition:** Be critical of "crowded" markets unless a wedge is clearly defined.
+- **Constraints:** Maximize specificity. Ground the "Kill Shot" risk in the single most fragile assumption.
+
+## Implementation Notes
+- Use Vercel AI SDK or LangChain for LLM orchestration.
+- Implement robust error handling for LLM timeouts or malformed JSON.
