@@ -85,6 +85,7 @@ Lower priority:
 
 ## What to Avoid
 
+- NEVER use explicit `any` types in tests. No exceptions.
 - Do not use React Testing Library.
 - Do not use Jest.
 - Do not use Cypress.

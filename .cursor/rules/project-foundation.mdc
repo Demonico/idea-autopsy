@@ -32,6 +32,7 @@ Use the stack that exists in this repository unless explicitly told otherwise.
 ## General Coding Standards
 
 - Use TypeScript for all application code.
+- NEVER use explicit `any` types. No exceptions. Prefer unknown or specific interfaces.
 - Use functional components and functions. Avoid classes unless truly required.
 - Prefer named exports by default.
 - Use descriptive variable and function names.
