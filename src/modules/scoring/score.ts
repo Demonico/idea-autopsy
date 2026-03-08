@@ -1,5 +1,12 @@
 import { Scoring } from '@/shared/types';
-import { SCORING_WEIGHTS } from './weights';
+
+export const SCORING_WEIGHTS = {
+  monetizationPotential: 0.30,
+  buyerClarity: 0.25,
+  demandSignal: 0.20,
+  buildability: 0.15,
+  competitionDensity: 0.10,
+} as const;
 
 export function calculateOverallScore(dimensions: Scoring['dimensions']): number {
   const score =
