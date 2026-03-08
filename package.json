@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "test": "vitest"
+    "test": "vitest --browser.headless=true"
   },
   "dependencies": {
     "@ai-sdk/openai": "^3.0.41",

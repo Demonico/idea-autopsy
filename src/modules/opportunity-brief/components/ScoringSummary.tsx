@@ -1,4 +1,4 @@
-import { Scoring, ScoreDimension } from '@/shared/types';
+import { Scoring } from '@/shared/types';
 
 interface Props {
   scoring: Scoring;
@@ -66,7 +66,7 @@ export function ScoringSummary({ scoring }: Props) {
             <div key={key} className="group space-y-3">
               <div className="flex items-center justify-between">
                 <div>
-                  <h3 className="font-bold text-zinc-900 dark:text-zinc-100 leading-none">
+                  <h3 className="font-bold text-zinc-900 dark:text-zinc-100">
                     {config.label}
                   </h3>
                   <p className="mt-1 text-xs text-zinc-500 dark:text-zinc-400">
@@ -77,9 +77,9 @@ export function ScoringSummary({ scoring }: Props) {
                   {dimension.score}/10
                 </span>
               </div>
-              
+
               <div className="relative h-2 w-full overflow-hidden rounded-full bg-zinc-200 dark:bg-zinc-800">
-                <div 
+                <div
                   className={`absolute h-full rounded-full transition-all duration-500 ${getBarColor(dimension.score)}`}
                   style={{ width: `${dimension.score * 10}%` }}
                 />

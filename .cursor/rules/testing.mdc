@@ -16,6 +16,9 @@ globs:
 - Prefer behavior and outcomes over implementation details.
 - Keep tests readable, focused, and easy to maintain.
 - Avoid low-value test volume.
+- Don't run tests unless explicitly instructed to do so.
+- NEVER ADD TEST IDS. Always use semantic selectors (role, placeholder, text, etc.). No exceptions.
+- Use static strings instead of regex. Regex is often slow and should only be used when other methods don't work.
 
 ## Testing Stack
 
